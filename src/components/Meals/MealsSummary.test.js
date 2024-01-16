@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import App from "./App";
+import MealsSummary from "./MealsSummary";
 
-test("App component is rendered as expected", () => {
-  render(<App />);
+test("MealsSummary component is rendered as expected", () => {
+  render(<MealsSummary />);
   const headerElement = screen.getByText(/Delicious Food, Delivered To You/i);
   expect(headerElement).toBeInTheDocument();
 });
