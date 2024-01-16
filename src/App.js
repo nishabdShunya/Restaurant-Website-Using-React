@@ -1,10 +1,11 @@
-// Write your code at relevant places in the code below:
+import React, { Fragment } from "react";
+import Header from "./components/Layout/Header";
 
 function App() {
   return (
-    <div>
-      <h1>Let's get started</h1>
-    </div>
+    <Fragment>
+      <Header />
+    </Fragment>
   );
 }
 
