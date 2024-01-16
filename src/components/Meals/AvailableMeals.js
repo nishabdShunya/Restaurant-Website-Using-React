@@ -1,6 +1,6 @@
-// Write your code at relevant places in the code below:
-
 import React from "react";
+import MealItem from "./MealItem/MealItem";
+import Card from "../UI/Card";
 import "./AvailableMeals.css";
 
 const DUMMY_MEALS = [
@@ -33,11 +33,20 @@ const DUMMY_MEALS = [
 const AvailableMeals = () => {
   return (
     <section className="meals">
-      <ul>
-        {DUMMY_MEALS.map((meal) => {
-          return <li>{meal.name}</li>;
-        })}
-      </ul>
+      <Card>
+        <ul>
+          {DUMMY_MEALS.map((meal) => {
+            return (
+              <MealItem
+                key={meal.id}
+                name={meal.name}
+                description={meal.description}
+                price={meal.price}
+              />
+            );
+          })}
+        </ul>
+      </Card>
     </section>
   );
 };
