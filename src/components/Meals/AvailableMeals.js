@@ -1,4 +1,5 @@
-// Write your code at relevant places in the code below:
+import React from "react";
+import "./AvailableMeals.css";
 
 const DUMMY_MEALS = [
   {
@@ -26,3 +27,17 @@ const DUMMY_MEALS = [
     price: 18.99,
   },
 ];
+
+const AvailableMeals = () => {
+  return (
+    <section className="meals">
+      <ul>
+        {DUMMY_MEALS.map((meal) => {
+          return <li>{meal.name}</li>;
+        })}
+      </ul>
+    </section>
+  );
+};
+
+export default AvailableMeals;
