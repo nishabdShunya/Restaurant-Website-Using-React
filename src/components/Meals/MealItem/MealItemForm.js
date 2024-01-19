@@ -3,8 +3,14 @@ import Input from "../../UI/Input";
 import "./MealItemForm.css";
 
 const MealItemForm = (props) => {
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const quantity = document.getElementById("quantity_" + props.id).value;
+    props.onAddItem(quantity);
+  };
+
   return (
-    <form className="form">
+    <form className="form" onSubmit={submitHandler}>
       <Input
         label="Quantity"
         inputConfig={{
