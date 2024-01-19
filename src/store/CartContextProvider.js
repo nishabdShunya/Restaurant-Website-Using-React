@@ -24,7 +24,26 @@ const CartContextProvider = (props) => {
     });
   };
 
-  const removeItemFromCart = (id) => {};
+  const removeItemFromCart = (id) => {
+    setItems((prevItems) => {
+      const existingItemIndex = prevItems.findIndex((existingItem) => {
+        return existingItem.id === id;
+      });
+      const existingItem = prevItems[existingItemIndex];
+      let updatedItems;
+      if (+existingItem.quantity === 1) {
+        updatedItems = prevItems.filter((item) => item.id !== id);
+      } else {
+        const updatedItem = {
+          ...existingItem,
+          quantity: +existingItem.quantity - 1,
+        };
+        updatedItems = [...prevItems];
+        updatedItems[existingItemIndex] = updatedItem;
+      }
+      return updatedItems;
+    });
+  };
 
   const cartContextObject = {
     items: items,
