@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Modal from "../UI/Modal";
+import CartItem from "./CartItem";
 import CartContext from "../../store/cart-context";
 import "./Cart.css";
 
@@ -12,7 +13,14 @@ const Cart = (props) => {
     <Modal onBackdropClick={props.onCloseCart}>
       <ul className="cart-items">
         {cartItems.map((item) => {
-          return <li key={item.id}>{item.name} - {item.quantity}</li>;
+          return (
+            <CartItem
+              key={item.id}
+              name={item.name}
+              quantity={item.quantity}
+              price={item.price}
+            />
+          );
         })}
       </ul>
       <div className="total">
