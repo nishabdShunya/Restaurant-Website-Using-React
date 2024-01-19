@@ -12,7 +12,7 @@ const Cart = (props) => {
     <Modal onBackdropClick={props.onCloseCart}>
       <ul className="cart-items">
         {cartItems.map((item) => {
-          return <li key={item.id}>{item.name}</li>;
+          return <li key={item.id}>{item.name} - {item.quantity}</li>;
         })}
       </ul>
       <div className="total">
