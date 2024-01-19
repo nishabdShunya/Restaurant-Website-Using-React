@@ -20,7 +20,6 @@ const CartContextProvider = (props) => {
 
   return (
     <CartContext.Provider value={cartContextObject}>
-      {console.log(items)}
       {props.children}
     </CartContext.Provider>
   );

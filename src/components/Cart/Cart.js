@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "../UI/Modal";
+import CartContext from "../../store/cart-context";
 import "./Cart.css";
 
 const Cart = (props) => {
-  const cartItems = [{ id: "c1", name: "Sushi", quantity: 1, price: 12.99 }];
+  const cartCtx = useContext(CartContext);
+
+  const cartItems = cartCtx.items;
 
   return (
     <Modal onBackdropClick={props.onCloseCart}>
