@@ -1,24 +1,18 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Cart from "./Cart";
 
-beforeEach(() => {
-  const overlaysElement = document.createElement("div");
-  overlaysElement.setAttribute("id", "overlays");
-  document.body.appendChild(overlaysElement);
+beforeAll(() => {
+  const portalRoot = document.createElement("div");
+  portalRoot.setAttribute("id", "overlays");
+  document.body.appendChild(portalRoot);
 });
 
-test("Cart component is rendered as expected", () => {
-  render(<Cart />);
-
-  const sushiElement = screen.getByText(/Sushi/i);
-  const totalText = screen.getByText(/Total Amount/i);
-  const closeButton = screen.getByText(/Close/i);
-  const orderButton = screen.getByText(/Order/i);
-
-  expect(sushiElement).toBeInTheDocument();
-  expect(totalText).toBeInTheDocument();
-  expect(closeButton).toBeInTheDocument();
-  expect(orderButton).toBeInTheDocument();
+test("clicking on Close button hides the cart", () => {
+  const closeCartMock = jest.fn();
+  render(<Cart onCloseCart={closeCartMock} />);
+  expect(screen.getByText("Sushi")).toBeInTheDocument();
+  fireEvent.click(screen.getByText("Close"));
+  expect(closeCartMock).toHaveBeenCalledTimes(1);
 });
