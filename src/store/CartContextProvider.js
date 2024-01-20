@@ -6,7 +6,21 @@ const CartContextProvider = (props) => {
 
   const addItemToCartHandler = (item) => {
     setItems((prevItems) => {
-      return [...prevItems, item];
+      const existingItemIndex = prevItems.findIndex((existingItem) => {
+        return existingItem.id === item.id;
+      });
+      if (existingItemIndex !== -1) {
+        const existingItem = prevItems[existingItemIndex];
+        const updatedItem = {
+          ...existingItem,
+          quantity: +existingItem.quantity + +item.quantity,
+        };
+        const updatedItems = [...prevItems];
+        updatedItems[existingItemIndex] = updatedItem;
+        return updatedItems;
+      } else {
+        return [...prevItems, item];
+      }
     });
   };
 
