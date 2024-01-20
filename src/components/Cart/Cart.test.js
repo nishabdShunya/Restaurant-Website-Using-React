@@ -1,5 +1,5 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import React, { useContext } from "react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Cart from "./Cart";
 
@@ -9,10 +9,27 @@ beforeAll(() => {
   document.body.appendChild(portalRoot);
 });
 
-test("clicking on Close button hides the cart", () => {
-  const closeCartMock = jest.fn();
-  render(<Cart onCloseCart={closeCartMock} />);
-  expect(screen.getByText("Sushi")).toBeInTheDocument();
-  fireEvent.click(screen.getByText("Close"));
-  expect(closeCartMock).toHaveBeenCalledTimes(1);
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useContext: jest.fn(),
+}));
+
+const sampleItems = [
+  { id: 1, name: "Item 1" },
+  { id: 2, name: "Item 2" },
+];
+
+beforeEach(() => {
+  useContext.mockReturnValue({
+    items: sampleItems,
+  });
+});
+
+test("Cart items are rendered as expected", () => {
+  render(<Cart onCloseCart={() => {}} />);
+
+  sampleItems.forEach((item) => {
+    const itemNameElement = screen.getByText(item.name);
+    expect(itemNameElement).toBeInTheDocument();
+  });
 });

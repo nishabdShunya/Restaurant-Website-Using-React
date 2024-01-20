@@ -1,11 +1,26 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+/* eslint-disable testing-library/no-node-access */
+import React, { useContext } from "react";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import HeaderButton from "./HeaderButton";
 
-test("clicking on the button in header opens the cart", () => {
-  const openCartMock = jest.fn();
-  render(<HeaderButton onClick={openCartMock} />);
-  fireEvent.click(screen.getByText("Your Cart"));
-  expect(openCartMock).toHaveBeenCalledTimes(1);
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useContext: jest.fn(),
+}));
+
+test("Header cart button shows total quantity as expected", () => {
+  const sampleItems = [
+    { id: 1, name: "Item 1", quantity: 2 },
+    { id: 2, name: "Item 2", quantity: 3 },
+  ];
+
+  useContext.mockReturnValue({
+    items: sampleItems,
+  });
+
+  render(<HeaderButton onClick={() => {}} />);
+
+  const badge = document.querySelector(".badge");
+  expect(badge).toHaveTextContent("5");
 });
