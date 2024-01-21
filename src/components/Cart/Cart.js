@@ -9,6 +9,10 @@ const Cart = (props) => {
 
   const cartItems = cartCtx.items;
 
+  const totalAmount = cartItems.reduce((total, item) => {
+    return total + +item.quantity * +item.price;
+  }, 0);
+
   return (
     <Modal onBackdropClick={props.onCloseCart}>
       <ul className="cart-items">
@@ -16,6 +20,7 @@ const Cart = (props) => {
           return (
             <CartItem
               key={item.id}
+              id={item.id}
               name={item.name}
               quantity={item.quantity}
               price={item.price}
@@ -25,7 +30,7 @@ const Cart = (props) => {
       </ul>
       <div className="total">
         <span>Total Amount</span>
-        <span>35.62</span>
+        <span>${totalAmount.toFixed(2)}</span>
       </div>
       <div className="actions">
         <button className="close-btn" onClick={props.onCloseCart}>

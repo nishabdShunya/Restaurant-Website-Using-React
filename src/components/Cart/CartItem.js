@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import CartContext from "../../store/cart-context";
 import "./CartItem.css";
 
 const CartItem = (props) => {
+  const cartCtx = useContext(CartContext);
+
+  const handleMinusClick = () => {
+    cartCtx.removeItem(props.id);
+  };
+
+  const handlePlusClick = () => {
+    cartCtx.addItem({
+      id: props.id,
+      name: props.name,
+      price: props.price,
+      quantity: 1,
+    });
+  };
+
   return (
     <li className="cart-item">
       <div>
@@ -12,8 +28,8 @@ const CartItem = (props) => {
         </div>
       </div>
       <div className="cart-item-actions">
-        <button>-</button>
-        <button>+</button>
+        <button onClick={handleMinusClick}>-</button>
+        <button onClick={handlePlusClick}>+</button>
       </div>
     </li>
   );
